@@ -87,7 +87,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('users.show', $user);
     }
 
     /**
