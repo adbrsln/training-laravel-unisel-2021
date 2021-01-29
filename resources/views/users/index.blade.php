@@ -41,6 +41,9 @@
                                             <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">
                                                 {{ __('Edit') }}
                                             </a>
+                                            <a href="#" class="ml-3 text-red-600 hover:text-red-900">
+                                                {{ __('Delete') }}
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

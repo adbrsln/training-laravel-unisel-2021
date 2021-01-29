@@ -111,6 +111,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        
+        if(auth()->user()->id == $user->id) {
+            return redirect()->route('users.index');
+        }
+        $user->delete();
+
+        return redirect()->route('users.index');   
     }
 }
