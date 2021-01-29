@@ -19,17 +19,19 @@
                         <div>
                             <x-label for="name" :value="__('Name')" />
 
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $user->name)" required autofocus />
+                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" 
+                                :value="old('name', $user->name)" required autofocus />
                         </div>
 
-                    <div class="flex items-center justify-end mt-4">
-                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('users.show', $user) }}">
-                            {{ __('Cancel') }}
-                        </a>
-                        <x-button class="ml-4">
-                            {{ __('Update') }}
-                        </x-button>
-                    </div>
+                        <div class="flex items-center justify-end mt-4">
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('users.show', $user) }}">
+                                {{ __('Cancel') }}
+                            </a>
+                            <x-button class="ml-4">
+                                {{ __('Update') }}
+                            </x-button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
