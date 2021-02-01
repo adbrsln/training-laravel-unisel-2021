@@ -14,6 +14,9 @@
                             {{ __('Create New User') }}
                         </a>
                     </div>
+                    <div class="flex items-center justify-end mt-2 mb-2">
+                        {{ $users->links() }}
+                    </div>
                     <table class="min-w-full divide-y divide-gray-200">
                           <thead class="bg-gray-50">
                             <tr>
@@ -49,6 +52,9 @@
                                 @endforeach
                           </tbody>
                       </table>
+                      <div class="flex items-center justify-end mt-2 mb-2">
+                        {{ $users->links() }}
+                      </div>
                 </div>
             </div>
         </div>
