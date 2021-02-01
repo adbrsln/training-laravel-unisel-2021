@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return true;
+        return auth()->user()->can('view-user');
     }
 
     /**
@@ -41,8 +41,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        // return auth()->user()->hasPermissionTo('create-user');
-        return true;
+        return auth()->user()->can('create-user');
     }
 
     /**
@@ -54,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return true;
+        return auth()->user()->can('update-user');
     }
 
     /**
@@ -66,7 +65,17 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return true;
+        // don't allow to delete administrator user
+        if($user->hasRole('administrator')) {
+            return false; 
+        }
+
+        // don't allow to delete current logged in user
+        if($user->id === $model->id) {
+            return false;
+        }
+
+        return auth()->user()->can('delete-user');
     }
 
     /**
@@ -78,7 +87,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        return true;
+        return auth()->user()->can('create-user');
     }
 
     /**
@@ -90,6 +99,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        return true;
+        return auth()->user()->can('delete-user');
     }
 }
