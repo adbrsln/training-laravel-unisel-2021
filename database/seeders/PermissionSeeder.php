@@ -15,27 +15,43 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-    	collect($this->roles())->each(function($role) {
-    		Role::create(['name' => $role]);
+        collect($this->permissions())->each(function($permission) {
+    		Permission::create(['name' => $permission]);
         });
 
-        // collect($this->permissions())->each(function($permission) {
-
-        // });
+        collect($this->rolePermissions())->each(function($permissions, $role) {
+        	Role::create(['name' => $role])
+        		->givePermissionTo($permissions);
+        });
     }
 
-    private function roles()
+    private function rolePermissions()
     {
     	return [
-    		'administrator',
-    		'user',
+    		'administrator' => [
+    			'create-user',
+	    		'update-user',
+	    		'view-user',
+	    		'view-all-user',
+	    		'delete-user',
+    		],
+    		'user' => [
+    			'view-profile',
+    			'update-profile',
+    		],
     	];
     }
 
     private function permissions()
     {
     	return [
-
+    		'create-user',
+    		'update-user',
+    		'view-user',
+    		'view-all-user',
+    		'delete-user',
+    		'view-profile',
+    		'update-profile'
     	];
     }
 }

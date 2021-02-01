@@ -17,9 +17,8 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        // return auth()->user()->isAdministrator();
-        // return false;
-        return true;
+        // return true;
+        return auth()->user()->can('view-all-user');
     }
 
     /**
