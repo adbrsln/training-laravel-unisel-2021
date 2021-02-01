@@ -43,12 +43,21 @@
                                             {{ $user->email }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">
-                                                {{ __('Edit') }}
-                                            </a>
-                                            <a href="#" class="ml-3 text-red-600 hover:text-red-900">
-                                                {{ __('Delete') }}
-                                            </a>
+                                            @can('view-user')
+                                              <a href="{{ route('users.show', $user) }}" class="text-indigo-600 hover:text-indigo-900">
+                                                  {{ __('View') }}
+                                              </a>
+                                            @endcan
+                                            @can('update-user')
+                                              <a href="{{ route('users.edit', $user) }}" class="ml-3 text-indigo-600 hover:text-indigo-900">
+                                                  {{ __('Edit') }}
+                                              </a>
+                                            @endcan
+                                            @can('delete-user')
+                                              <a href="#" class="ml-3 text-red-600 hover:text-red-900">
+                                                  {{ __('Delete') }}
+                                              </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

@@ -28,12 +28,18 @@ class PermissionSeeder extends Seeder
     private function rolePermissions()
     {
     	return [
+            'superadmin' => [
+                'create-user',
+                'update-user',
+                'view-user',
+                'view-all-user',
+                'delete-user',
+            ],
     		'administrator' => [
     			'create-user',
 	    		'update-user',
 	    		'view-user',
 	    		'view-all-user',
-	    		'delete-user',
     		],
     		'user' => [
     			'view-profile',

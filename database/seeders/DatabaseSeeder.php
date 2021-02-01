@@ -22,6 +22,13 @@ class DatabaseSeeder extends Seeder
     {
         if(app()->environment() != 'production') {
             \App\Models\User::factory()->create([
+                'name' => 'Superadmin',
+                'email' => 'super@app.com',
+            ])
+            ->assignRole('superadmin')
+            ->assignRole('user');
+
+            \App\Models\User::factory()->create([
                 'name' => 'Administrator',
                 'email' => 'admin@app.com',
             ])
