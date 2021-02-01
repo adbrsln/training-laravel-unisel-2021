@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -22,18 +23,25 @@ class ProfileController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
+        ];
 
-        auth()->user()->update([
+        $data = [
             'name' => $request->name,
-            'email' => $request->email,
-        ]);
+        ];
+
+        if($request->has('password') && !empty($request->password)) {
+            $rules['password'] = 'required|string|confirmed|min:8';
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $request->validate($rules);
+
+        auth()->user()->update($data);
 
         alert()->success('Profile', 'Your profile has been successfully updated.');
 
-        return redirect()->route('profile');
+        return redirect()->route('profile.show');
     }
 }
