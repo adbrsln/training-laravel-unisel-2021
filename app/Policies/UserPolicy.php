@@ -42,6 +42,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
+        // return auth()->user()->hasPermissionTo('create-user');
         return true;
     }
 
