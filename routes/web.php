@@ -24,3 +24,10 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::resource('users', \App\Http\Controllers\UserController::class);
+
+Route::view('profile', 'profile')
+	->middleware('can:view-profile')
+	->name('profile.show');
+Route::put('profile', \App\Http\Controllers\ProfileController::class)
+	->middleware('can:update-profile')
+	->name('profile.update');

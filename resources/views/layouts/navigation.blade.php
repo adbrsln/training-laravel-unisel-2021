@@ -39,6 +39,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        @can('view-profile')
+                            <x-dropdown-link :href="route('profile.show')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                        @endcan
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
