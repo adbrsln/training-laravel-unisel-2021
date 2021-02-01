@@ -59,6 +59,8 @@ class UserController extends Controller
 
         event(new Registered($user));
 
+        alert()->success('User', 'User successfully created');
+
         return redirect()->route('users.index');
     }
 
@@ -101,6 +103,8 @@ class UserController extends Controller
             'name' => $request->name,
         ]);
 
+        alert()->success('User', 'User successfully updated');
+
         return redirect()->route('users.show', $user);
     }
 
@@ -113,9 +117,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if(auth()->user()->id == $user->id) {
+            alert()->warning('User', 'You cannot delete yourself.');
             return redirect()->route('users.index');
         }
         $user->delete();
+
+        alert()->success('User', 'User successfully deleted');
 
         return redirect()->route('users.index');   
     }
