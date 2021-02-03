@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::resource('users', \App\Http\Controllers\UserController::class);
+Route::resource('articles', \App\Http\Controllers\ArticleController::class);
 
 Route::view('profile', 'profile')
 	->middleware('can:view-profile')

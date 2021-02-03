@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(Article::class, 'article');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = \App\Models\Article::where('user_id', auth()->user()->id)->paginate();
+        return view('articles.index', compact('articles'));
     }
 
     /**
@@ -24,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -35,7 +42,20 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'content' => 'required|min:10',
+        ]);
+
+        $article = \App\Models\Article::create([
+            'user_id' => auth()->user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        alert()->success('Article', 'You have successfully created an article.');
+
+        return redirect()->route('articles.show', $article);
     }
 
     /**
@@ -46,7 +66,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -57,7 +77,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -69,7 +89,19 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'content' => 'required|min:10',
+        ]);
+
+        $article->update([
+            'name' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        alert()->success('Article', 'You have successfully update an article.');
+
+        return redirect()->route('articles.show', $article);
     }
 
     /**
@@ -80,6 +112,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+
+        alert()->success('Article', 'You have successfully delete an article.');
+
+        return redirect()->route('articles.index');
     }
 }

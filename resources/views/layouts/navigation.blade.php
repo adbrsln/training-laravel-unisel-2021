@@ -20,6 +20,11 @@
                             {{ __('Manage Users') }}
                         </x-nav-link>
                     @endif
+                    @if (Auth::user()->can('viewAny', \App\Models\Article::class))
+                        <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+                            {{ __('Articles') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -79,6 +84,12 @@
             @if (Auth::user()->can('viewAny', \App\Models\User::class))
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                     {{ __('Manage Users') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if (Auth::user()->can('viewAny', \App\Models\Article::class))
+                <x-responsive-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
+                    {{ __('Articles') }}
                 </x-responsive-nav-link>
             @endif
         </div>
