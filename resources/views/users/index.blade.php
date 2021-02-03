@@ -54,9 +54,16 @@
                                               </a>
                                             @endcan
                                             @can('delete-user')
-                                              <a href="#" class="ml-3 text-red-600 hover:text-red-900">
-                                                  {{ __('Delete') }}
-                                              </a>
+                                              <form method="POST" action="{{ route('users.destroy', $user) }}">
+                                                @csrf @method('DELETE')
+                                                <a href="#" class="ml-3 text-red-600 hover:text-red-900"
+                                                  onclick="event.preventDefault();
+                                                  if(confirm('Are sure want to delete this user?')) {
+                                                    this.closest('form').submit();  
+                                                  }">
+                                                    {{ __('Delete') }}
+                                                </a>
+                                              </form>
                                             @endcan
                                         </td>
                                     </tr>

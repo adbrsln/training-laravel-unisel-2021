@@ -66,12 +66,12 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         // don't allow to delete administrator user
-        if($user->hasRole('administrator')) {
+        if($model->hasRole('superadmin|administrator')) {
             return false; 
         }
 
         // don't allow to delete current logged in user
-        if($user->id === $model->id) {
+        if($model->id === auth()->user()->id) {
             return false;
         }
 
