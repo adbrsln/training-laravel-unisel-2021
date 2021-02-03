@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+	$articles = \App\Models\Article::with('user')->latest()->limit(10)->get();
+    return view('dashboard', compact('articles'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

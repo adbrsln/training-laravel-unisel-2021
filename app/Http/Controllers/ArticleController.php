@@ -20,7 +20,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = \App\Models\Article::where('user_id', auth()->user()->id)->paginate();
+        $articles = \App\Models\Article::query()
+            ->where('user_id', auth()->user()->id)
+            ->paginate();
         return view('articles.index', compact('articles'));
     }
 
