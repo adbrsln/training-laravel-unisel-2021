@@ -40,6 +40,8 @@ class DatabaseSeeder extends Seeder
                 ->each(function($user) {
                     $user->assignRole('user');
                 });
+
+            $this->call(ArticleSeeder::class);
         }
     }
 }

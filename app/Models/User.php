@@ -44,11 +44,8 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdministrator()
+    public function articles()
     {
-        // apply your logic here...
-        // return true;
-        // return $this->hasRole('admin');
-        // return $this->is_admin;
+        return $this->hasMany(Article::class);
     }
 }
